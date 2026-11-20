@@ -10,14 +10,47 @@
   <div class="container py-5" style="max-width: 600px;">
     <div class="card shadow-sm">
       <div class="card-body">
+
         <h1 class="card-title">⚽ {{ match.location }}</h1>
         <p class="lead">{{ match.starts_at|date:"l j F Y, H:i" }}</p>
-        <p>Giocatori: <span class="badge bg-warning">{{ match.max_players }}</span></p>
-        {% if match.visibility == "public" %}
-  <span class="badge bg-info">{{ match.get_visibility_display }}</span>
-{% else %}
-  <span class="badge bg-secondary">{{ match.get_visibility_display }}</span>
-{% endif %}
+
+        <p>
+          Posti liberi: <span class="badge bg-warning">{{ free_spots }}</span>
+          {% if match.visibility == "public" %}
+            <span class="badge bg-info">{{ match.get_visibility_display }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ match.get_visibility_display }}</span>
+          {% endif %}
+        </p>
+
+        <h2 class="h5 mt-4">Giocatori ({{ confirmed|length }}/{{ match.max_players }})</h2>
+        <ul>
+          {% for r in confirmed %}
+            <li>{{ r.guest_name }}</li>
+          {% empty %}
+            <li>Nessun iscritto per ora</li>
+          {% endfor %}
+        </ul>
+
+        {% if waitlist %}
+          <h2 class="h5 mt-4">Lista d'attesa</h2>
+          <ul>
+            {% for r in waitlist %}
+              <li>{{ r.guest_name }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h2 class="h5 mt-4">Iscriviti</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_div }}
+          <button type="submit" class="btn btn-success mt-3">Partecipo</button>
+        </form>
+
+        <h2 class="h5 mt-4">Condividi con gli amici</h2>
+        <input class="form-control" readonly value="{{ request.build_absolute_uri }}">
+
       </div>
     </div>
   </div>

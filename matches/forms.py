@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Match
+from .models import Match, Registration
 
 
 class MatchForm(forms.ModelForm):
@@ -20,3 +20,9 @@ class MatchForm(forms.ModelForm):
             "max_players": "Numero di giocatori",
             "visibility": "Visibilità",
         }
+
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Registration
+        fields = ["guest_name"]
+        labels = {"guest_name": "Il tuo nome"}        
