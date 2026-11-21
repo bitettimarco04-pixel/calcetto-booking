@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "matches",
+    'matches',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,6 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
-LOGIN_URL = "/admin/login/"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "create_match"
+LOGOUT_REDIRECT_URL = "login"

@@ -14,6 +14,10 @@
       {{ form.as_div }}
       <button type="submit" class="btn btn-success mt-3">Crea partita</button>
     </form>
+    <form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-outline-secondary btn-sm mt-4">Esci</button>
+</form>
   </div>
 </body>
 </html>
